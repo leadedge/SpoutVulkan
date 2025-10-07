@@ -31,9 +31,8 @@
  */
 class HelloTriangle : public vkb::Application
 {
-
 	// SPOUT
-	// Global swapchain images
+	// Global vector of swapchain images
 	std::vector<VkImage> swapchain_images;
 
 	/**

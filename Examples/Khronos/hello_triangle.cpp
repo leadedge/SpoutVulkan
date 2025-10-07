@@ -17,7 +17,7 @@
  *
  * ================================================================
  * Adapted for SPOUT send and receive : http://spout.zeal.co/
- * from : https://github.com/SaschaWillems/Vulkan
+ * from : https://github.com/khronosGroup/Vulkan-samples
  * and based on https://developer.nvidia.com/getting-vulkan-ready-vr
  * Search on "SPOUT" for additions.
  * Code details and comments in SpoutVK.cpp.
@@ -33,7 +33,15 @@
 #include "platform/window.h"
 
 // SPOUT
-#define BUILDRECEIVER // Build a receiver rather than a sender
+// #define BUILDRECEIVER // Build a receiver rather than a sender
+//
+// Note that for this example a Spout sender must be running when
+// the application starts and there is no provision for the sender
+// closing or for sender selection. For these options see the
+// modified version of the triangle example by Willems -
+// https://github.com/leadedge/SpoutVulkan/blob/main/Examples/triangle.cpp
+// https://github.com/SaschaWillems/Vulkan/tree/master/examples/triangle
+// 
 
 // SPOUT
 // Sender and receiver use the same class
@@ -43,8 +51,6 @@ spoutVK receiver;
 #else
 spoutVK sender;
 #endif
-
-
 
 #if defined(VKB_DEBUG) || defined(VKB_VALIDATION_LAYERS)
 /// @brief A debug callback used to report messages from the validation layers. See instance creation for details on how this is set up
@@ -479,7 +485,7 @@ void HelloTriangle::init_swapchain()
 	VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(context.gpu, context.surface, &surface_properties));
 
 	// SPOUT
-	// Requires unorm format instead of srgb preferred
+	// Requires UNORM format instead of SRGB preferred
 	// VkSurfaceFormatKHR format = vkb::select_surface_format(context.gpu, context.surface);
 	VkSurfaceFormatKHR format = vkb::select_surface_format(
     context.gpu, context.surface,
@@ -585,8 +591,10 @@ void HelloTriangle::init_swapchain()
 	uint32_t image_count;
 	VK_CHECK(vkGetSwapchainImagesKHR(context.device, context.swapchain, &image_count, nullptr));
 
-	// SPOUT - swapchain_images is global in hello_triangle.h
+	//
+	// SPOUT - the variable "swapchain_images" is global in hello_triangle.h
 	// so that the swapchain image can be accessed in the render function
+	//
 	// The swapchain images.
 	// std::vector<VkImage> swapchain_images(image_count);
 	swapchain_images.resize(image_count);
@@ -912,6 +920,7 @@ void HelloTriangle::render_triangle(uint32_t swapchain_index)
 	vkBeginCommandBuffer(cmd, &begin_info);
 
 	#ifdef BUILDRECEIVER
+
 	// 
 	// SPOUT receiver
 	//
@@ -1099,14 +1108,7 @@ HelloTriangle::HelloTriangle()
 	// The executable name is used by default
 	sender.SetSenderName("Khronos Hello Triangle Sender");
 	#endif
-
-	// Enable this to see printf and std::cout statements
-	// OpenSpoutConsole(); // Console only for debugging
-	// Enable this to see error logs to trace problems
-	// EnableSpoutLog(); // Log to console
-	//
 	// DirectX11 is intialized in the SpoutVK constructor
-	//
 
 }
 
