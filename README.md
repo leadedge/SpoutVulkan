@@ -4,7 +4,7 @@ Based on the the C++ examples for Vulkan by [Sascha Willems](https://github.com/
 
 Search on "SPOUT" in the example source files. The SpoutVK class demonstrates the principles for interop between Vulkan and DirectX. The "LinkVulkanImage" function gives an overview of the process. Code comments provide more details.
 
-Although the code may not be immediately suitable for a particular application, the Willems examples are can be examined for creating a Spout sender or receiver and working binaries can be tested. The Khronos example repository is more complex but the "hello_triangle" example has been successfully modified.
+Although the code may not be immediately suitable for a particular application, the examples can be examined for creating a Spout sender or receiver. The Willems examples may be the easiest to reproduce and working binaries can be tested. The Khronos example repository is more complex but the "hello_triangle" example has been successfully modified.
 
 ## Willems "triangle" sender/receiver example
 
